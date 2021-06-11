@@ -1,0 +1,48 @@
+<script>
+
+var x = Number(prompt("Irj be egy számot!"));
+var romaiSzam="";
+x = x.toFixed(0);
+
+
+while(Math.floor(x) != 0){
+	if (Math.floor(x)-1000 >= 0){
+	romaiSzam += "M";
+	x -= 1000;
+	}
+	else if (Math.floor(x)-500 >= 0){
+	romaiSzam += "D";
+	x -= 500;
+	}
+	else if (Math.floor(x)-100 >= 0){
+	romaiSzam += "C";
+	x -= 100;
+	}
+	else if (Math.floor(x)-50 >= 0){
+	romaiSzam += "L";
+	x -= 50;
+	}
+	else if (Math.floor(x)-10 >= 0){
+	romaiSzam += "X";
+	x -= 10;
+	}
+	else if (Math.floor(x)-5 >= 0){
+	romaiSzam += "V";
+	x -= 5;
+	}
+	else if (Math.floor(x)-1 >= 0){
+	romaiSzam += "I";
+	x -= 1;
+	}
+}
+
+  romaiSzam = romaiSzam.replace("VIIII","IX");
+  romaiSzam = romaiSzam.replace("IIII","IV");
+  romaiSzam = romaiSzam.replace("LXXXX","XC");
+  romaiSzam = romaiSzam.replace("XXXX","XL");
+  romaiSzam = romaiSzam.replace("DCCCC","CM");
+  romaiSzam = romaiSzam.replace("CCCC","CD");
+  
+  alert(romaiSzam);
+  
+</script>

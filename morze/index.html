@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="morze.js"></script>
+<script src="morzeFeltoro.js"></script>
+<style>
+body{
+background-color: mediumSeaGreen;
+text-align: center;
+}
+div{
+float:left;
+border: 3px solid gold;
+padding: 30px 0;
+background-color: LightGray;
+width: 40%;
+margin-left: auto;
+margin-right: auto;
+box-shadow: 10px 10px 5px grey;
+}
+input{
+width: 80px;
+height: 30px;
+font-weight: bold;
+
+}
+label{
+font-size: 25px;
+font-weight: bold;
+}
+p{
+background-color: lightGrey;
+font-weight: bold;
+font-size: 30px;
+padding: 10px 0;
+}
+#morzeid{
+float:left;
+width:40.5%;
+}
+#morzeid2{
+float:left;
+width:40.5%;
+}
+.blokk{
+
+}
+
+</style>
+</head>
+<body>
+<span style="width:100%; height:150px; display:block;"></span>
+<span style="width:30%; height: 400px; display:block; float:left;"></span>
+	<p id="morzeid">... --- ...</p>
+
+<div>
+	<form>
+	<label for="morze1">Morze Író</label><br>
+	<input type="text" id="morze1" name="morze1"/>
+      <input type="button" value="csapasd" onclick="morze()"/>
+      </form>
+	  <form style="margin-top:20px">
+	  <label for="morze2">Morze Feltörő</label><br>
+	  <input type="text" id="morze2" name="morze2"/>
+      <input type="button" value="csapasd" onclick="morzeFeltoro()"/>
+      </form>
+</div>
+	<p id="morzeid2">S O S</p>
+
+
+</body>
+</html>

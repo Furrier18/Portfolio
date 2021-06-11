@@ -1,0 +1,440 @@
+<!-- php kód, mely adatbázis megléte esetén menti az eredményt, illetve kiírja az első 3 legjobbat
+<"?"php
+	require_once 'connect.php';
+	$i=0;
+	if(!empty($_POST['start2'])){
+		if(isset($_POST['nev']) && !empty($_POST['nev']) && $i<1){
+			$nev=htmlentities(htmlspecialchars($db->real_escape_string(trim($_POST['nev']))));
+			$pont=$_POST['pont'];
+			$db->query("INSERT INTO `eredmenyek` (`nev`, `pontszam`)
+					VALUES ('{$nev}','{$pont}')");
+			header("Refresh:0");
+			$i++;
+		}
+	}
+?>
+-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<link rel="stylesheet" href="pckecske.css" media="(min-width:800px)">
+<link rel="stylesheet" href="mobilekecske.css" media="(max-width:800px)">
+<meta http-equiv="content-type" 
+content="text/html; charset=UTF-8">
+<meta name="viewport" 
+content="width = device-width, initial-scale=1.0 maximum-scale=1.0; user-scalable=0;">
+<title>KecskeJatek</title>
+<style>
+img{
+	user-drag: none;
+	-webkit-user-drag: none;
+	user-select: none;
+	-webkit-user-select: none;
+	-webkit-touch-callout:none;
+	-webkit-user-select:none;
+	-khtml-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	user-select:none;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+*{
+	touch-action: manipulation;
+}
+@media only screen and (min-width: 800px){
+#nev{
+	position: absolute;
+	top: 370px;
+	left: 880px;
+	width: 178px;
+}
+#eredmenyek{
+	position: absolute;
+	top: 190px;
+	left: 1120px;
+	border-collapse: collapse;
+	text-align: center;
+	font-weight: bold;
+	width: 228px;
+}
+#eredmenyek td, tr, th{
+	border-collapse: collapse;
+}
+}
+@media only screen and (max-width: 800px){
+	html, body {
+  overflow-x: hidden;
+}
+#nev{
+	position: absolute;
+	top: 170px;
+	left: 150px;
+	width: 120px;
+}
+#eredmenyek{
+	position: absolute;
+	top: 10px;
+	left: 245px;
+	border-collapse: collapse;
+	text-align: center;
+	font-weight: bold;
+	max-width: 80px;
+	font-size: 10px;
+}
+#eredmenyek td, tr, th{
+	border-collapse: collapse;
+}
+.hatter{
+	width:386px;
+	height:600px;
+	position: absolute;
+	border: 3px solid green;
+	background-image: url('grass3mobile.jpg');
+}
+}
+ </style>
+</head>
+<body>
+<a class="vissza" href="index.html"><span> &lt;&lt; Vissza a főoldalra</span></a>
+<div class="hatter"></div>
+<div id="pontok"></div>
+<div id="idodiv">Idő<div id="ido">30</div></div>
+<!-- Az eredmények kiírása táblázat szerűen, ikonokkal
+<"?"php
+	if($result = $db -> query("SELECT * FROM `eredmenyek` ORDER BY `pontszam` DESC")){
+		if ($result->num_rows){
+			echo "<table id='eredmenyek'>";
+			echo "<tr><th><img src='trophy.png' width='40px' height='40px'></th><th style='font-size:30px; text-shadow: 2px 2px grey;'>Név</th>\
+			<th><img src='repa.png' width='40px'></th></tr>";
+			$i=1;
+			while($i <= 3 && $row = $result->fetch_object()){
+				echo "<tr>";
+				echo "<td>".$i."."."</td>"."<td>".$row->nev."</td><td>".$row->pontszam."</td>";
+				echo "</tr>";
+				$i++;
+				$legkisebbpont=$row->pontszam;
+			}
+			$db->query("DELETE FROM `eredmenyek` WHERE `pontszam` < '{$legkisebbpont}'");
+			echo "</table>";
+		}
+	}
+	$result->free();
+	$db->close();
+?>
+-->
+<div id="pontokossz"><b style="font-size:20px;">Játék vége</b><br><b>Elért pontszám: </b><b></b> </div>
+<div id="kecske"><img id="kecskekep" src="kecskeikontrBal.png" width="150px" height="100px"></div>
+<div id="repa"><img id="repakep" src="repa.png" width="50px" height="80px"></div>
+<div id="repa2"><img id="repakep2" src="repa.png" width="50px" height="80px"></div>
+<div id="baloldal" ontouchstart="lenyom1()" ontouchend="felenged1()" ontouchcancel="felenged1()"></div>
+<div id="jobboldal" ontouchstart="lenyom2()" ontouchend="felenged2()" ontouchcancel="felenged2()"></div>
+<input id="nev" type="text" name="nev" placeholder="Ird be a neved"/>
+<input id="start2" name="start2" type="text"/>
+<input id="pontokfelkuld" name="pont" type="text"/>
+</form>
+<div id="start">START</div>
+<div id="ujra">Ujra</div>
+<span style="background-color: lightgreen; top: 800px; left: 720px;"> Használja az "a" és a "d" billentyűket a mozgatáshoz </span>
+
+<script>
+
+	document.getElementById("start").addEventListener("click", start);
+	document.getElementById("ujra").addEventListener("click", start);
+
+	var kecske = document.getElementById("kecske");
+	var repa = document.getElementById("repa");
+	var repa2 = document.getElementById("repa2");
+	var repakep = document.getElementById("repakep");
+	var repakep2 = document.getElementById("repakep2");
+	var start = document.getElementById("start");
+	var start2 = document.getElementById("start2");
+	var pontokossz = document.getElementById("pontokossz");
+	var x = window.matchMedia("(min-width: 800px)");
+	var felkuld = document.getElementById("pontokfelkuld");
+	
+	start2.value = null;
+	
+	felkuld.style.display = "none";
+	start2.style.display = "none";
+
+	function lenyom2(){
+		jobbra = true;
+	};
+	function lenyom1(){
+		balra = true;
+	};
+	function felenged2(){
+		jobbra = false;
+	};
+	function felenged1(){
+		balra = false;
+	};
+
+	var ujra = document.getElementById("ujra");
+
+	var jobbra = false; //68
+	var balra = false; //65
+	
+
+	function kijelzomeret(x){
+	if (x.matches){
+	repakep.style.display = "none";
+	repakep2.style.display = "none";
+	kecske.style.left = "900px";
+	kecske.style.top = "682px";
+	repa.style.left = "600px";
+	repa.style.top = "20px";
+	repa2.style.left = "600px";
+	repa2.style.top = "20px";}
+	else{
+	repakep.style.display = "none";
+	repakep2.style.display = "none";
+	kecske.style.left = "120px";
+	kecske.style.top = "500px";
+	repa.style.left = "0px";
+	repa.style.top = "0px";
+	repa2.style.left = "0px";
+	repa2.style.top = "0px";
+	}
+	}
+	kijelzomeret(x);
+	x.addListener(kijelzomeret);
+	var vege = false;
+	function start(){
+	
+	function kijelzomeret2(x){
+		if (x.matches){
+	var kecskeX = 900;	
+	var repaX = 0;
+	var repaY = 0;
+	var repaYSeb = 0;
+	
+	var repaX2 = 0;
+	var repaY2 = 0;
+	var repaYSeb2 = 0;
+	
+	var pont = 0;
+	var ido = 30;
+	vege = false;
+	var x=0;
+
+	pontokossz.style.display = "none";
+	nev.style.display = "none";
+	ujra.style.display = "none";
+	start.style.display = "none";
+	repakep.style.display = "block";
+	repakep2.style.display = "block";
+	
+	document.addEventListener('keydown', function(event){
+		if (event.keyCode == 68){jobbra = true;};
+		if (event.keyCode == 65){balra = true;};
+	});
+	document.addEventListener('keyup', function(event){
+		if (event.keyCode == 68){jobbra = false;};
+		if (event.keyCode == 65){balra = false;};
+	});
+	
+	function loop(){
+		if(jobbra && kecskeX + 155 <= 1350){kecskeX+=5;};
+		if(balra && kecskeX - 10>= 550){kecskeX-=5;};
+		if (repaY <= 720){repaY += repaYSeb;}
+		else{startRepa();};
+		if (repaY2 <= 720){repaY2 += repaYSeb2;}
+		else{startRepa2();};
+		if(repaY >= 630 && repaX >= kecskeX  && repaX <= kecskeX + 120 && vege == false){
+		pont++; startRepa();
+		}
+		if(repaY2 >= 630 && repaX2 >= kecskeX && repaX2 <= kecskeX + 120 && vege == false){
+		pont++; startRepa2();
+		}
+		if (jobbra){
+		document.getElementById("kecskekep").src = "kecskeikontrJobb.png";
+		}
+		if(balra){
+		document.getElementById("kecskekep").src = "kecskeikontrBal.png";
+		}
+		if (vege==true){
+			kecskeX = 900;
+		}
+		
+		
+		document.getElementById("pontok").innerHTML = pont;
+		repa.style.left = repaX + "px";
+		repa.style.top = repaY + "px";
+		repa2.style.left = repaX2 + "px";
+		repa2.style.top = repaY2 + "px";
+		kecske.style.left = kecskeX + "px";
+		document.getElementById("ido").innerHTML = ido;
+		if (vege==true && x!=1){
+		document.getElementById("form").submit();
+		x++;
+	}
+	
+		window.requestAnimationFrame(loop);
+	}
+	
+	function startRepa(){
+		if (vege==false){
+	repaX = (Math.random()*700+600);
+	repaY = 0;
+	repaYSeb = (Math.random()*8+2);
+		}
+	}
+	function startRepa2(){
+		if (vege==false){
+	repaX2 = (Math.random()*700+600);
+	repaY2 = 0;
+	repaYSeb2 = (Math.random()*8+2);
+		}
+	}
+	function idoszamlalo(){
+	if(ido != 0){
+		ido = ido - 1;
+		setTimeout(idoszamlalo,1000);
+		}
+	}
+	
+
+	idoszamlalo();
+	startRepa();
+	startRepa2();
+	loop();
+	
+	setTimeout(function(){
+	vege = true;
+	ujra.style.display = "block";
+	repakep.style.display = "none";
+	repakep2.style.display = "none";
+	document.addEventListener('keydown', function(event){
+		if (event.keyCode == 68){jobbra = false;};
+		if (event.keyCode == 65){balra = false;};
+	});
+	var node = document.createTextNode(pont);
+	pontokossz.replaceChild(node, pontokossz.childNodes[3]);
+	pontokossz.style.display = "block";
+	start2.value = "OK";
+	felkuld.value = pont;
+	repaX = 0;
+	repaY = 0;
+	repaX2 = 0;
+	repaY2 = 0;
+	kecskeX = 900;
+	
+	},30000);
+	}
+	
+	//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	else{
+	
+	var kecskeX = 120;	
+	var repaX = 0;
+	var repaY = 0;
+	var repaYSeb = 0;
+	
+	var repaX2 = 0;
+	var repaY2 = 0;
+	var repaYSeb2 = 0;
+	
+	var pont = 0;
+	var ido = 30;
+	var vege = false;
+	var x=0;
+
+
+	pontokossz.style.display = "none";
+	nev.style.display = "none";
+	ujra.style.display = "none";
+	start.style.display = "none";
+	repakep.style.display = "block";
+	repakep2.style.display = "block";
+	
+	function loop(){
+		if(jobbra && kecskeX + 155 <= 400){kecskeX+=5;};
+		if(balra && kecskeX - 10>= 0){kecskeX-=5;};
+		if (repaY <= 540 && vege == false){repaY += repaYSeb;}
+		else{startRepa();};
+		if (repaY2 <= 540 && vege == false){repaY2 += repaYSeb2;}
+		else{startRepa2();};
+		if(repaY >= 470 && repaX >= kecskeX  && repaX <= kecskeX + 120 && vege == false){
+		pont++; startRepa();
+		}
+		if(repaY2 >= 470 && repaX2 >= kecskeX && repaX2 <= kecskeX + 120 && vege == false){
+		pont++; startRepa2();
+		}
+		if (jobbra){
+		document.getElementById("kecskekep").src = "kecskeikontrJobb.png";
+		}
+		if(balra){
+		document.getElementById("kecskekep").src = "kecskeikontrBal.png";
+		}
+		if (vege==true){
+			kecskeX = 120;
+			repaX = 0;
+			repaY = 0;
+			repaX2 = 0;
+			repaY2 = 0;
+		}
+		
+		document.getElementById("pontok").innerHTML = pont;
+		repa.style.left = repaX + "px";
+		repa.style.top = repaY + "px";
+		repa2.style.left = repaX2 + "px";
+		repa2.style.top = repaY2 + "px";
+		kecske.style.left = kecskeX + "px";
+		document.getElementById("ido").innerHTML = ido;
+		if (vege==true && x!=1){
+		document.getElementById("form").submit();
+		x++;
+	}
+		window.requestAnimationFrame(loop);
+	}
+	
+	function startRepa(){
+	repaX = (Math.random()*360+10);
+	repaY = 0;
+	repaYSeb = (Math.random()*8+3);
+	}
+	function startRepa2(){
+	repaX2 = (Math.random()*360+10);
+	repaY2 = 0;
+	repaYSeb2 = (Math.random()*8+3);
+	}
+	function idoszamlalo(){
+	if(ido != 0){
+		ido = ido - 1;
+		setTimeout(idoszamlalo,1000);
+		}
+	}
+	
+	idoszamlalo();
+	startRepa();
+	startRepa2();
+	loop();
+	
+	setTimeout(function(){
+	vege = true;
+	ujra.style.display = "block";
+	repakep.style.display = "none";
+	repakep2.style.display = "none";
+	jobbra = false;
+	balra = false;
+
+	var node = document.createTextNode(pont);
+	pontokossz.replaceChild(node, pontokossz.childNodes[3]);
+	pontokossz.style.display = "block";
+	start2.value = "OK";
+	felkuld.value = pont;
+	repaX = 0;
+	repaY = 0;
+	repaX2 = 0;
+	repaY2 = 0;
+	kecskeX = 120;
+	},30000);}
+	}
+	kijelzomeret2(x);
+	x.addListener(kijelzomeret2);
+}
+
+</script>
+</body>
+</html>
