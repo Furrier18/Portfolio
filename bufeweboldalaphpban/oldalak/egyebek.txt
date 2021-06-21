@@ -1,0 +1,15 @@
+Gyros;(kifli, csirkemell, zöldség, mártás, sajt);1000 Ft;1200 Ft
+Gyros pitában;(pita, csirkemell, zöldség, mártás, sajt);800 Ft; 
+Gyros tál;(sült burgonya, csirkemell, zöldség, mártás, sajt);1000 Ft;1250 Ft
+Vega tál;(sült burgonya, zöldség, mártás, sajt);700 Ft; 
+Hamburger;(buci, hús, zöldség, ketchup, mustár, sajt) +mártás 50Ft/100Ft;690 Ft;950 Ft
+Amerikai hamburger;(buci, hús, bacon, barbecue, pirított hagyma, sajt);1150 Ft;1400 Ft
+Hot-dog;(kifli, virsli, ketchup, mustár, majonéz) +sajt 30Ft;300 Ft; 
+Ankor hot-dog;(kifli, virsli, mártás, zöldség, sajt);550 Ft; 
+Wimpy;(kifli, sajt, baconbe tekert sült virsli, zöldség, mártás);880 Ft; 
+Shaorma;(tortilla tészta, csirkemell, zöldségek, csemegeuborka, mártás, sajt);990 Ft; 
+Chicken nuggets;(sült burgonya, 6db nuggets, mártás);1000 Ft; 
+Rántott sajt;(sült burgonya, 3db sajt, mártás);900 Ft; 
+Halrudacskák;(sült burgonya, 5db nuggets, mártás);1200 Ft; 	
+Ankor saláta;(saláta, csirkemell, zöldségek, mártás, sajt, olivabogyó);820 Ft; 
+Fitness saláta;(saláta, zöldségek, mártás, sajt);450 Ft; 

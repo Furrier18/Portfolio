@@ -1,0 +1,21 @@
+Sonkás;(paradicsomos alap, sonka, sajt);1200 Ft;2000 Ft
+Szalámis;(paradicsomos alap, szalámi, sajt);1200 Ft;2000 Ft
+Hawaii;(paradicsomos alap, sonka, ananász, kukorica, sajt);1400 Ft;2320 Ft
+Songoku;(paradicsomos alap, sonka, gomba, kukorica, sajt);1400 Ft;2320 Ft
+Nyári;(barbecue alap, bacon, sonka, kukorica, mozarella);1300 Ft;2200 Ft
+Őszi;(mustáros-tejfölös alap, csirkemell, szalámi, kukorica, méz, sajt);1300 Ft;2200 Ft
+Téli;(carbonare alap, hagyma, paprika, sajt);1300 Ft;2200 Ft
+Magyaros;(paradicsomos alap, kolbász, bacon, hagyma, paradicsom, paprika);1400 Ft;2350 Ft
+Húsimádó;(paradicsomos alap, mindenféle hús);1600 Ft;2920 Ft
+Cyprus;(fokhagymás-tejfölös alap, tarja, bacon, lilahagyma, füstölt sajt);1550 Ft;2800 Ft
+Snoopy;(fokhagymás-tejfölös alap, csirkemell, fokhagyma, gomba, kolbász, sajt);1600 Ft;2600 Ft
+Fitness;(paradicsomos alap, csirkemell, gomba, paradicsom, sajt);1550 Ft;2630 Ft
+4 évszak;(paradicsomos alap, sonka, gomba, kukorica, ananász, borsó, sajt);1600 Ft;2500 Ft
+Amerikai;(paradicsomos alap, darált hús, mozarella, brokkoli, paradicsom, hagyma, sajt);1520 Ft;2520 Ft
+Ankor;(tejfölös alap, kukorica, tarja, hagyma, bacon, sajt);	1920 Ft;3110 Ft
+Maya;(fokhagymás-tejfölös alap, tarja, csirkemell, csemege uborka, hagyma, bacon, sajt);1600 Ft;2930 Ft
+4 sajtos;(paradicsomos alap, mozarella, trapista, füstölt, gouda sajt);1530 Ft;2960 Ft
+Mexikói;(taco alap, marhahús, bab, paprika, jalapeno, sajt, tortilla);1520 Ft;2920 Ft
+Szecsuáni;(paradicsomos alap, csirkemell, szecsuáni mártás, vörösbab, sajt);1620 Ft;2620 Ft
+Bolognais;(bolognai alap, hagyma, paradicsom, sajt);1520 Ft;2550 Ft
+Tulaj kedvence;(tejfölös alap, sonka, kukorica, hagyma, sajt);1360 Ft;2550 Ft
